@@ -32,6 +32,7 @@ export default class User extends Component {
     stars: [],
     page: 1,
     loading: true,
+    refreshing: false,
   };
 
   async componentDidMount() {
@@ -51,6 +52,7 @@ export default class User extends Component {
       stars: page >= 2 ? [...stars, ...response.data] : response.data,
       page,
       loading: false,
+      refreshing: false,
     });
   };
 
@@ -60,6 +62,10 @@ export default class User extends Component {
     const nextPage = page + 1;
 
     this.load(nextPage);
+  };
+
+  refreshList = () => {
+    this.setState({ refreshing: true, stars: [] }, this.load);
   };
 
   render() {
@@ -80,6 +86,8 @@ export default class User extends Component {
           <Loading />
         ) : (
           <Stars
+            onRefresh={this.refreshList}
+            refreshing={this.state.refreshing}
             onEndReachedThreshold={0.2}
             onEndReached={this.loadMore}
             data={stars}
