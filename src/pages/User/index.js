@@ -104,9 +104,7 @@ export default class User extends Component {
               <Starred onPress={() => this.handleNavigate(item)}>
                 <OwnerAvatar source={{ uri: item.owner.avatar_url }} />
                 <Info>
-                  <Title>
-                    {item.name}
-                  </Title>
+                  <Title>{item.name}</Title>
                   <Author>{item.owner.login}</Author>
                 </Info>
               </Starred>
